@@ -22,5 +22,12 @@ public class ClientMapper {
                 .build();
     }
 
+    public Client map(ClientRequest clientRequest) {
+        return Client.builder()
+                .email(clientRequest.getEmail())
+                .name(clientRequest.getName())
+                .build();
+    }
+
 
 }

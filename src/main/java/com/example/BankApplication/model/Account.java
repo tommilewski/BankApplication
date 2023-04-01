@@ -2,6 +2,7 @@ package com.example.BankApplication.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
+@Builder
 public class Account {
 
     @Id
@@ -23,4 +25,7 @@ public class Account {
 
     @Column(name = "CURRENCY")
     private String currency;
+
+    @Column(name = "CLIENT_ID")
+    private Long clientId;
 }

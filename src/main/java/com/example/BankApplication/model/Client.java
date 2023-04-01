@@ -3,6 +3,7 @@ package com.example.BankApplication.model;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,7 @@ public class Client {
     private String email;
 
     @OneToMany
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "CLIENT_ID")
     private List<Account> accounts;
 
 }
