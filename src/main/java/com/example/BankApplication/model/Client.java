@@ -3,12 +3,14 @@ package com.example.BankApplication.model;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "CLIENTS")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Client {
