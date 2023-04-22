@@ -1,40 +1,29 @@
 package com.example.BankApplication.service;
 
 import com.example.BankApplication.model.Account;
+import com.example.BankApplication.model.dto.AccountMapper;
 import com.example.BankApplication.model.dto.AccountRequest;
 import com.example.BankApplication.model.dto.AccountResponse;
 import com.example.BankApplication.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 @RequiredArgsConstructor
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountMapper accountMapper;
 
-    public AccountResponse find(long id) throws IllegalAccessException {
-        return accountRepository
-                .findById(id)
-                .map(account ->
-                        AccountResponse.builder()
-                                .balance(account.getBalance())
-                                .currency(account.getCurrency())
-                                .clientId(account.getClientId())
-                                .id(account.getId())
-                                .build())
-                .orElseThrow(() -> new IllegalAccessException("Account with " + id + " not found"));
+    public AccountResponse find(long id) throws IllegalArgumentException{
+        Account account = accountRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Account with " + id + " not found"));
+        return accountMapper.map(account);
     }
 
     public Account save(AccountRequest accountRequest){
-        return accountRepository.save(
-                Account.builder()
-                        .balance(accountRequest.getBalance())
-                        .clientId(accountRequest.getClientId())
-                        .currency(accountRequest.getCurrency())
-                        .build());
+        Account account = accountMapper.map(accountRequest);
+        return accountRepository.save(account);
     }
 }
 
