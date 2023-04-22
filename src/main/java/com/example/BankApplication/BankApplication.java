@@ -9,9 +9,7 @@ import java.math.BigDecimal;
 public class BankApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(BankApplication.class, args);
-
-		System.out.println(new BigDecimal("1").compareTo(new BigDecimal("0")));
+		SpringApplication.run(BankApplication.class, args);
 	}
 
 }
