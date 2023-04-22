@@ -31,21 +31,21 @@ public class AccountService {
     public void transfer(long fromAccountId, long toAccountId, BigDecimal amount){
         validateAmount(amount);
         validateAccounts(fromAccountId, toAccountId);
-        System.out.println(fromAccountId + " " + toAccountId);
-        Account fromAccount = accountRepository.getOne(fromAccountId);
-        Account toAccount = accountRepository.getOne(toAccountId);
 
-//        if (accountRepository.findById(fromAccountId).isPresent()){
-//            fromAccount = accountRepository.findById(fromAccountId).get();
-//        } else {
-//            throw new IllegalArgumentException("Account with " + fromAccountId + " id does not exist");
-//        }
-//
-//        if (accountRepository.findById(toAccountId).isPresent()){
-//            toAccount = accountRepository.findById(toAccountId).get();
-//        } else {
-//            throw new IllegalArgumentException("Account with " + toAccountId + " id does not exist");
-//        }
+        Account fromAccount;
+        Account toAccount;
+
+        if (accountRepository.findById(fromAccountId).isPresent()){
+            fromAccount = accountRepository.findById(fromAccountId).get();
+        } else {
+            throw new IllegalArgumentException("Account with " + fromAccountId + " id does not exist");
+        }
+
+        if (accountRepository.findById(toAccountId).isPresent()){
+            toAccount = accountRepository.findById(toAccountId).get();
+        } else {
+            throw new IllegalArgumentException("Account with " + toAccountId + " id does not exist");
+        }
 
         BigDecimal fromAccountResult = fromAccount.getBalance().subtract(amount);
         if (fromAccountResult.compareTo(new BigDecimal("0")) > 0){
