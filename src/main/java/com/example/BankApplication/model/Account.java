@@ -20,10 +20,10 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "BALANCE")
+    @Column(name = "BALANCE", nullable = false)
     private BigDecimal balance;
 
-    @Column(name = "CURRENCY")
+    @Column(name = "CURRENCY", nullable = false)
     private String currency;
 
     @Column(name = "CLIENT_ID")
