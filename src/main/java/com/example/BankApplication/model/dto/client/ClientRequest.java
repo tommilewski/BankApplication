@@ -1,19 +1,15 @@
-package com.example.BankApplication.model.dto;
+package com.example.BankApplication.model.dto.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientResponse {
-    private Long id;
+public class ClientRequest {
     private String name;
     private String email;
-    private List<Long> accounts;
 }

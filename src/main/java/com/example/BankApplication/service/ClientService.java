@@ -1,9 +1,9 @@
 package com.example.BankApplication.service;
 
 import com.example.BankApplication.model.Client;
-import com.example.BankApplication.model.dto.ClientMapper;
-import com.example.BankApplication.model.dto.ClientRequest;
-import com.example.BankApplication.model.dto.ClientResponse;
+import com.example.BankApplication.model.dto.client.ClientMapper;
+import com.example.BankApplication.model.dto.client.ClientRequest;
+import com.example.BankApplication.model.dto.client.ClientResponse;
 import com.example.BankApplication.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

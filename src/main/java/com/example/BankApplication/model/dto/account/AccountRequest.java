@@ -1,5 +1,4 @@
-package com.example.BankApplication.model.dto;
-
+package com.example.BankApplication.model.dto.account;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,12 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class AccountResponse {
-    private long id;
+@Data
+public class AccountRequest {
     private BigDecimal balance;
     private String currency;
     private Long clientId;

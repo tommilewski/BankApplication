@@ -1,4 +1,4 @@
-package com.example.BankApplication.model.dto;
+package com.example.BankApplication.model.dto.client;
 
 import com.example.BankApplication.model.Account;
 import com.example.BankApplication.model.Client;

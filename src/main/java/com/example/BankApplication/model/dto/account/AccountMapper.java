@@ -1,4 +1,4 @@
-package com.example.BankApplication.model.dto;
+package com.example.BankApplication.model.dto.account;
 
 import com.example.BankApplication.model.Account;
 import org.springframework.stereotype.Component;
