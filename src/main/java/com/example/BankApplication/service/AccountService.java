@@ -31,25 +31,26 @@ public class AccountService {
     public void transfer(long fromAccountId, long toAccountId, BigDecimal amount){
         validateAmount(amount);
         validateAccounts(fromAccountId, toAccountId);
-        Account fromAccount;
-        Account toAccount;
+        System.out.println(fromAccountId + " " + toAccountId);
+        Account fromAccount = accountRepository.getOne(fromAccountId);
+        Account toAccount = accountRepository.getOne(toAccountId);
 
-        if (accountRepository.findById(fromAccountId).isPresent()){
-            fromAccount = accountRepository.findById(fromAccountId).get();
-        } else {
-            throw new IllegalArgumentException("Account with " + fromAccountId + " does not exist");
-        }
+//        if (accountRepository.findById(fromAccountId).isPresent()){
+//            fromAccount = accountRepository.findById(fromAccountId).get();
+//        } else {
+//            throw new IllegalArgumentException("Account with " + fromAccountId + " id does not exist");
+//        }
+//
+//        if (accountRepository.findById(toAccountId).isPresent()){
+//            toAccount = accountRepository.findById(toAccountId).get();
+//        } else {
+//            throw new IllegalArgumentException("Account with " + toAccountId + " id does not exist");
+//        }
 
-        if (accountRepository.findById(toAccountId).isPresent()){
-            toAccount = accountRepository.findById(toAccountId).get();
-        } else {
-            throw new IllegalArgumentException("Account with " + toAccountId + " does not exist");
-        }
-
-        BigDecimal fromAccountResult = fromAccount.getBalance().subtract(toAccount.getBalance());
+        BigDecimal fromAccountResult = fromAccount.getBalance().subtract(amount);
         if (fromAccountResult.compareTo(new BigDecimal("0")) > 0){
             fromAccount.setBalance(fromAccountResult);
-            BigDecimal toAccountResult = toAccount.getBalance().add(fromAccount.getBalance());
+            BigDecimal toAccountResult = toAccount.getBalance().add(amount);
             toAccount.setBalance(toAccountResult);
         } else {
             throw new IllegalArgumentException("No enough money");

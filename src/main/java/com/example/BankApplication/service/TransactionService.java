@@ -18,7 +18,7 @@ public class TransactionService {
     public void createTransaction(TransactionRequest transactionRequest){
 
         accountService.transfer(
-                transactionRequest.getToAccountId(),
+                transactionRequest.getFromAccountId(),
                 transactionRequest.getToAccountId(),
                 transactionRequest.getAmount()
         );

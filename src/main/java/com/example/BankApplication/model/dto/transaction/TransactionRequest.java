@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+
 
 @Data
 @AllArgsConstructor
@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 public class TransactionRequest {
     private BigDecimal amount;
     private String currency;
-    private OffsetDateTime transactionDate;
     private long fromAccountId;
     private long toAccountId;
 }
