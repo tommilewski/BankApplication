@@ -1,5 +1,6 @@
 package com.example.BankApplication.controller;
 
+import com.example.BankApplication.model.Client;
 import com.example.BankApplication.model.dto.client.ClientRequest;
 import com.example.BankApplication.model.dto.client.ClientResponse;
 import com.example.BankApplication.service.ClientService;
@@ -22,7 +23,7 @@ public class ClientController {
 
     @PostMapping("/api/client")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void save(@RequestBody ClientRequest clientRequest){
-        clientService.save(clientRequest);
+    public Client save(@RequestBody ClientRequest clientRequest){
+        return clientService.save(clientRequest);
     }
 }

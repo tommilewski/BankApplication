@@ -23,9 +23,9 @@ public class AccountService {
         return accountMapper.map(account);
     }
 
-    public Account save(AccountRequest accountRequest){
+    public void save(AccountRequest accountRequest){
         Account account = accountMapper.map(accountRequest);
-        return accountRepository.save(account);
+        accountRepository.save(account);
     }
 
     public void transfer(long fromAccountId, long toAccountId, BigDecimal amount){

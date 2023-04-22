@@ -29,7 +29,7 @@ public class ClientRepositoryTest {
         underTest.save(client);
 
         //when
-        Client result = underTest.findByEmail(email);
+        Client result = underTest.findByEmail(email).get();
 
         //then
         Assertions.assertEquals(client, result);
