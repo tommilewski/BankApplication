@@ -15,10 +15,6 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
 
-    public Client save(Client client){
-        return clientRepository.save(client);
-    }
-
     public Client save(ClientRequest clientRequest){
         Client client = clientMapper.map(clientRequest);
         return clientRepository.save(client);
