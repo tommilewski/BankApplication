@@ -53,7 +53,7 @@ public class AccountService {
             BigDecimal toAccountResult = toAccount.getBalance().add(amount);
             toAccount.setBalance(toAccountResult);
         } else {
-            throw new IllegalArgumentException("No enough money");
+            throw new IllegalArgumentException("Not enough money");
         }
 
         accountRepository.save(fromAccount);

@@ -16,11 +16,15 @@ public class ClientService {
     private final ClientMapper clientMapper;
 
     public Client save(ClientRequest clientRequest){
+        if (clientRepository.findByEmail(clientRequest.getEmail()).isPresent()){
+            throw new IllegalArgumentException("Email exists");
+        }
         Client client = clientMapper.map(clientRequest);
         return clientRepository.save(client);
     }
     public ClientResponse findByEmail(String email){
-        Client client = clientRepository.findByEmail(email);
+        Client client = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Email does not exist"));
         return clientMapper.map(client);
     }
 }
