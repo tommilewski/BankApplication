@@ -7,6 +7,8 @@ import com.example.BankApplication.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
@@ -15,16 +17,23 @@ public class TransactionService {
     private final AccountService accountService;
     private final TransactionMapper transactionMapper;
 
-    public void createTransaction(TransactionRequest transactionRequest){
+    public List<Transaction> findAllTransactions(){
+        return transactionRepository.findAll();
+    }
 
-        accountService.transfer(
-                transactionRequest.getFromAccountId(),
-                transactionRequest.getToAccountId(),
-                transactionRequest.getAmount()
-        );
+    public void createTransaction(TransactionRequest transactionRequest){
 
         Transaction transaction = transactionMapper.map(transactionRequest);
         transactionRepository.save(transaction);
+
+//        accountService.transfer(
+//                transactionRequest.getFromAccount().getId(),
+//                transactionRequest.getToAccount().getId(),
+//                transactionRequest.getAmount()
+//        );
+//
+//        Transaction transaction = transactionMapper.map(transactionRequest);
+//        transactionRepository.save(transaction);
     }
 
 }

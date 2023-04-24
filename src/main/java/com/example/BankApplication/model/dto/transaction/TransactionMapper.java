@@ -13,9 +13,21 @@ public class TransactionMapper {
                 .builder()
                 .amount(transactionRequest.getAmount())
                 .currency(transactionRequest.getCurrency())
-                .fromAccountId(transactionRequest.getFromAccountId())
-                .toAccountId(transactionRequest.getToAccountId())
+                .fromAccount(transactionRequest.getFromAccount())
+                .toAccount(transactionRequest.getToAccount())
                 .transactionDate(OffsetDateTime.now())
+                .build();
+    }
+
+    public TransactionResponse map(Transaction transaction){
+        return TransactionResponse
+                .builder()
+                .id(transaction.getId())
+                .amount(transaction.getAmount())
+                .currency(transaction.getCurrency())
+                .transactionDate(transaction.getTransactionDate())
+                .fromAccountId(transaction.getFromAccount().getId())
+                .toAccountId(transaction.getToAccount().getId())
                 .build();
     }
 }

@@ -31,9 +31,11 @@ public class Transaction {
     @Column(name = "TRANSACTION_DATE")
     private OffsetDateTime transactionDate;
 
-    @Column(name = "FROM_ACCOUNT_ID", nullable = false)
-    private long fromAccountId;
+    @OneToMany()
+    //@JoinColumn(name = "id")
+    private Account fromAccount;
 
-    @Column(name = "TO_ACCOUNT_ID", nullable = false)
-    private long toAccountId;
+    @OneToOne()
+    //@JoinColumn(name = "id")
+    private Account toAccount;
 }
