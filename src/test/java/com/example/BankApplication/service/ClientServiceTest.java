@@ -70,14 +70,16 @@ class ClientServiceTest {
     }
 
     @Test
-    @Disabled
     public void itShouldSaveClientCorrectly(){
         //given
         String email = "tommil@gmail.com";
         ClientRequest client = new ClientRequest("Tomasz", email);
+        Client entity = new Client(1L, "Tomasz", email, List.of());
 
         //when
-        when(clientMapper.map(client)).thenReturn(new Client(1L, "Tomasz", email, List.of()));
+        when(clientRepository.findByEmail(email)).thenReturn(Optional.empty());
+        when(clientMapper.map(client)).thenReturn(entity);
+        when(clientRepository.save(entity)).thenReturn(entity);
 
         //then
        Client result = underTest.save(client);
