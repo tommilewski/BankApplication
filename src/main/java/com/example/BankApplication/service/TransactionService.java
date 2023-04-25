@@ -23,17 +23,14 @@ public class TransactionService {
 
     public void createTransaction(TransactionRequest transactionRequest){
 
+        accountService.transfer(
+                transactionRequest.getFromAccount().getId(),
+                transactionRequest.getToAccount().getId(),
+                transactionRequest.getAmount()
+        );
+
         Transaction transaction = transactionMapper.map(transactionRequest);
         transactionRepository.save(transaction);
-
-//        accountService.transfer(
-//                transactionRequest.getFromAccount().getId(),
-//                transactionRequest.getToAccount().getId(),
-//                transactionRequest.getAmount()
-//        );
-//
-//        Transaction transaction = transactionMapper.map(transactionRequest);
-//        transactionRepository.save(transaction);
     }
 
 }

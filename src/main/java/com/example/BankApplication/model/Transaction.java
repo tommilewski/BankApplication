@@ -31,11 +31,11 @@ public class Transaction {
     @Column(name = "TRANSACTION_DATE")
     private OffsetDateTime transactionDate;
 
-    @OneToMany()
-    //@JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "FROM_ACCOUNT_ID")
     private Account fromAccount;
 
-    @OneToOne()
-    //@JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "TO_ACCOUNT_ID")
     private Account toAccount;
 }

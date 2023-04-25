@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,17 +26,11 @@ public class TransactionController {
     public ResponseEntity<List<TransactionResponse>> getAllTransactions(){
 
         List<Transaction> listOfTransactions = transactionService.findAllTransactions();
-//        List<TransactionResponse> listOfTransactionsResponse = new ArrayList<>();
-//
-//        for (Transaction transaction : listOfTransactions) {
-//            TransactionResponse transactionResponse = transactionMapper.map(transaction);
-//            listOfTransactionsResponse.add(transactionResponse);
-//        }
         return new ResponseEntity<>(
                 listOfTransactions
                 .stream()
                 .map(transactionMapper::map)
-                .toList(), HttpStatus.OK
+                .collect(Collectors.toList()), HttpStatus.OK
                 );
     }
 
