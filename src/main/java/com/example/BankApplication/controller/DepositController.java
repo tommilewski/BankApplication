@@ -23,8 +23,9 @@ public class DepositController {
     }
 
     @PostMapping("api/deposit")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public void save(@RequestBody DepositRequest depositRequest){
-        depositService.createWithdrawMoney(depositRequest);
+        depositService.createDepositMoney(depositRequest);
 
     }
 }

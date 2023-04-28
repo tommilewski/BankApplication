@@ -28,9 +28,9 @@ public class DepositService {
 
 
     }
-    public void createWithdrawMoney(DepositRequest depositRequest){
+    public void createDepositMoney(DepositRequest depositRequest){
 
-        accountService.withdrawMoney(depositRequest.getAccount().getId(), depositRequest.getAmount());
+        accountService.depositMoney(depositRequest.getAccount().getId(), depositRequest.getAmount());
         Deposit deposit = depositMapper.map(depositRequest);
 
         depositRepository.save(deposit);

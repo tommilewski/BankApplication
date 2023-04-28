@@ -1,6 +1,5 @@
 package com.example.BankApplication.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +14,8 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "DEPOSITS")
-public class Deposit {
+@Table(name = "WITHDRAWS")
+public class Withdraw {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +27,10 @@ public class Deposit {
     @Column(name = "CURRENCY", nullable = false)
     private String currency;
 
-    @Column(name = "DEPOSIT_DATE")
-    private OffsetDateTime depositDate;
+    @Column(name = "WITHDRAW_DATE")
+    private OffsetDateTime withdrawDate;
 
     @OneToOne
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
-
 }

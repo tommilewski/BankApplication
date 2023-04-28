@@ -73,6 +73,22 @@ public class AccountService {
         }
     }
 
+    public void depositMoney(long accountId, BigDecimal amount){
+        validateAmount(amount);
+        Account account;
+
+        if (accountRepository.findById(accountId).isPresent()){
+            account = accountRepository.findById(accountId).get();
+        } else {
+            throw new IllegalArgumentException("Account with " + accountId + " id does not exist");
+        }
+
+        BigDecimal result = account.getBalance().add(amount);
+        account.setBalance(result);
+        accountRepository.save(account);
+
+    }
+
     public void withdrawMoney(long accountId, BigDecimal amount){
         validateAmount(amount);
         Account account;
@@ -90,6 +106,7 @@ public class AccountService {
             throw new IllegalArgumentException("Not enough money");
         }
 
+        account.setBalance(result);
         accountRepository.save(account);
 
     }
