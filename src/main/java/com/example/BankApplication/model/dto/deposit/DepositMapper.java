@@ -2,6 +2,8 @@ package com.example.BankApplication.model.dto.deposit;
 
 import com.example.BankApplication.model.Deposit;
 
+import java.time.OffsetDateTime;
+
 public class DepositMapper {
 
     public DepositResponse map(Deposit deposit){
@@ -19,6 +21,7 @@ public class DepositMapper {
                 .amount(depositRequest.getAmount())
                 .currency(depositRequest.getCurrency())
                 .account(depositRequest.getAccount())
+                .depositDate(OffsetDateTime.now())
                 .build();
     }
 }

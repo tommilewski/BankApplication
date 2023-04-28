@@ -72,5 +72,26 @@ public class AccountService {
             throw new IllegalArgumentException("Accounts are the same");
         }
     }
+
+    public void withdrawMoney(long accountId, BigDecimal amount){
+        validateAmount(amount);
+        Account account;
+
+        if (accountRepository.findById(accountId).isPresent()){
+            account = accountRepository.findById(accountId).get();
+        } else {
+            throw new IllegalArgumentException("Account with " + accountId + " id does not exist");
+        }
+
+        BigDecimal result = account.getBalance().subtract(amount);
+        if (result.compareTo(new BigDecimal("0")) > 0){
+            account.setBalance(result);
+        } else {
+            throw new IllegalArgumentException("Not enough money");
+        }
+
+        accountRepository.save(account);
+
+    }
 }
 
