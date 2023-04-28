@@ -120,4 +120,46 @@ class AccountServiceTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> underTest.find(id));
     }
 
+    @Test
+    public void withdrawMoneyCorrectly(){
+        //given
+        long id = 1L;
+        Account acc = new Account(id, new BigDecimal("100"), "PLN", 5L );
+
+        //when
+        when(accountRepository.findById(id)).thenReturn(Optional.of(acc));
+
+        //then
+        underTest.withdrawMoney(id,new BigDecimal("10"));
+
+        Assertions.assertEquals(new BigDecimal("90"), acc.getBalance());
+    }
+
+    @Test
+    public void withdrawMoneyWithAccountDoesNotExist(){
+        //given
+        long id = 1L;
+
+        //when
+        when(accountRepository.findById(id)).thenReturn(Optional.empty());
+
+        //then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> underTest.withdrawMoney(id,
+                new BigDecimal("10")));
+    }
+
+    @Test
+    public void withdrawMoneyWithNotEnoughMoney(){
+        //given
+        long id = 1L;
+        Account acc = new Account(id, new BigDecimal("100"), "PLN", 5L );
+
+        //when
+        when(accountRepository.findById(id)).thenReturn(Optional.of(acc));
+
+        //then
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> underTest.withdrawMoney(id, new BigDecimal("1000")));
+    }
+
 }
