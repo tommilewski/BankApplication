@@ -14,7 +14,6 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @Builder
 public class TransactionResponse {
-    private Long id;
     private BigDecimal amount;
     private String currency;
     private OffsetDateTime transactionDate;

@@ -17,6 +17,10 @@ public class TransactionService {
     private final AccountService accountService;
     private final TransactionMapper transactionMapper;
 
+    public List<Transaction> findByFromAccountId(long id){
+        return transactionRepository.findByFromAccountId(id);
+    }
+
     public List<Transaction> findAllTransactions(){
         return transactionRepository.findAll();
     }

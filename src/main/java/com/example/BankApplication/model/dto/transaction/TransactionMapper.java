@@ -22,7 +22,6 @@ public class TransactionMapper {
     public TransactionResponse map(Transaction transaction){
         return TransactionResponse
                 .builder()
-                .id(transaction.getId())
                 .amount(transaction.getAmount())
                 .currency(transaction.getCurrency())
                 .transactionDate(transaction.getTransactionDate())
