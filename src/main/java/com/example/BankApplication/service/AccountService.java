@@ -32,20 +32,8 @@ public class AccountService {
         validateAmount(amount);
         validateAccounts(fromAccountId, toAccountId);
 
-        Account fromAccount;
-        Account toAccount;
-
-        if (accountRepository.findById(fromAccountId).isPresent()){
-            fromAccount = accountRepository.findById(fromAccountId).get();
-        } else {
-            throw new IllegalArgumentException("Account with " + fromAccountId + " id does not exist");
-        }
-
-        if (accountRepository.findById(toAccountId).isPresent()){
-            toAccount = accountRepository.findById(toAccountId).get();
-        } else {
-            throw new IllegalArgumentException("Account with " + toAccountId + " id does not exist");
-        }
+        Account fromAccount = checkIfAccountExist(fromAccountId);
+        Account toAccount = checkIfAccountExist(toAccountId);
 
         BigDecimal fromAccountResult = fromAccount.getBalance().subtract(amount);
         if (fromAccountResult.compareTo(new BigDecimal("0")) > 0){
@@ -58,8 +46,6 @@ public class AccountService {
 
         accountRepository.save(fromAccount);
         accountRepository.save(toAccount);
-
-
     }
 
     private void validateAmount(BigDecimal amount){
@@ -73,31 +59,27 @@ public class AccountService {
         }
     }
 
+    private Account checkIfAccountExist(long id) throws IllegalArgumentException{
+
+        if (accountRepository.findById(id).isPresent()){
+            return accountRepository.findById(id).get();
+        } else {
+            throw new IllegalArgumentException("Account with " + id + " id does not exist");
+        }
+    }
+
     public void depositMoney(long accountId, BigDecimal amount){
         validateAmount(amount);
-        Account account;
-
-        if (accountRepository.findById(accountId).isPresent()){
-            account = accountRepository.findById(accountId).get();
-        } else {
-            throw new IllegalArgumentException("Account with " + accountId + " id does not exist");
-        }
+        Account account = checkIfAccountExist(accountId);
 
         BigDecimal result = account.getBalance().add(amount);
         account.setBalance(result);
         accountRepository.save(account);
-
     }
 
     public void withdrawMoney(long accountId, BigDecimal amount){
         validateAmount(amount);
-        Account account;
-
-        if (accountRepository.findById(accountId).isPresent()){
-            account = accountRepository.findById(accountId).get();
-        } else {
-            throw new IllegalArgumentException("Account with " + accountId + " id does not exist");
-        }
+        Account account = checkIfAccountExist(accountId);
 
         BigDecimal result = account.getBalance().subtract(amount);
         if (result.compareTo(new BigDecimal("0")) > 0){
@@ -108,7 +90,6 @@ public class AccountService {
 
         account.setBalance(result);
         accountRepository.save(account);
-
     }
 }
 
