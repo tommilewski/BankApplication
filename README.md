@@ -14,15 +14,15 @@ To run the application, follow these steps:
 - Clone the repository to your local environment.
 - Open the project in your IDE.
 - Configure the connection to the PostgreSQL database in the application.properties file.
-- Run the application with the command mvn spring-boot:run.
+- Run the application with the command `mvn spring-boot:run`.
 
 # Testing
 - The JUnit framework and the H2 database were used for testing. To run the tests, follow these steps:
 - Make sure that the H2 database is configured in the application.properties file.
-- Run the unit tests with the command mvn test.
+- Run the unit tests with the command `mvn test`.
 
 # TODO (in the future)
-- Enable deposit and withdrawal of money.
-- Implement currency conversion during transfers.
+- Enable deposit and withdrawal of money. ✅
+- Implement currency conversion during transfers. ✅
 - Write more tests to increase the test coverage.
 - Add security.
