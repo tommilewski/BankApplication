@@ -4,11 +4,13 @@ import com.example.BankApplication.model.Account;
 import com.example.BankApplication.model.dto.account.AccountMapper;
 import com.example.BankApplication.model.dto.account.AccountRequest;
 import com.example.BankApplication.model.dto.account.AccountResponse;
+import com.example.BankApplication.model.dto.currency.CurrencyResponse;
 import com.example.BankApplication.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
+    private final CurrencyService currencyService;
 
     public AccountResponse find(long id) throws IllegalArgumentException{
         Account account = accountRepository.findById(id).orElseThrow(
@@ -34,11 +37,19 @@ public class AccountService {
 
         Account fromAccount = checkIfAccountExist(fromAccountId);
         Account toAccount = checkIfAccountExist(toAccountId);
+        BigDecimal newAmount = amount;
+
+        if (!fromAccount.getCurrency().equals(toAccount.getCurrency())){
+            CurrencyResponse currencyRates = currencyService.getCurrencyRates(fromAccount.getCurrency());
+            BigDecimal currencyAmount = currencyRates.getRates().get(toAccount.getCurrency());
+            newAmount = amount.multiply(currencyAmount).setScale(2, RoundingMode.HALF_UP);
+        }
+
 
         BigDecimal fromAccountResult = fromAccount.getBalance().subtract(amount);
         if (fromAccountResult.compareTo(new BigDecimal("0")) > 0){
             fromAccount.setBalance(fromAccountResult);
-            BigDecimal toAccountResult = toAccount.getBalance().add(amount);
+            BigDecimal toAccountResult = toAccount.getBalance().add(newAmount);
             toAccount.setBalance(toAccountResult);
         } else {
             throw new IllegalArgumentException("Not enough money");
